@@ -1,3 +1,11 @@
+<?php
+include 'includes/header.php';
+include 'includes/navbar.php';
+require_once 'config/database.php';
+require_once 'classes/Event.php';
+require_once 'classes/Validator.php';
+?>
+
 <div class="container mt-5">
     <h2 class="mb-4">Edit Event</h2>
     <form action="event-edit.php?id=<?= $event['id'] ?>" method="POST">
@@ -19,3 +27,4 @@
         <button type="submit" class="btn btn-primary">Update Event</button>
     </form>
 </div>
+<?php include 'includes/footer.php'; ?>

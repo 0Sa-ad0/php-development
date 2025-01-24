@@ -1,5 +1,10 @@
 <?php
-require_once 'config/database.php';
+require_once '../config/database.php';
+
+include '../includes/header.php';
+include '../includes/navbar.php';
+require_once '../classes/Event.php';
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -69,3 +74,4 @@ $result = $conn->query($query);
 </html>
 
 <?php $conn->close(); ?>
+<?php include '../includes/footer.php'; ?>

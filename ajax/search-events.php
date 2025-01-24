@@ -1,5 +1,6 @@
 <?php
 require_once '../config/database.php';
+require_once '../classes/Event.php';
 
 $searchQuery = isset($_GET['query']) ? htmlspecialchars(trim($_GET['query'])) : '';
 $conn = getDatabaseConnection();

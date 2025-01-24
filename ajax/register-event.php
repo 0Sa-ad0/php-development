@@ -1,5 +1,8 @@
 <?php
 require_once '../config/database.php';
+require_once '../classes/Event.php';
+require_once '../classes/Validator.php';
+
 session_start();
 
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {

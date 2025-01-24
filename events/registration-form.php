@@ -1,3 +1,11 @@
+<?php
+include 'includes/header.php';
+include 'includes/navbar.php';
+include 'includes/footer.php';
+require_once 'config/database.php';
+require_once 'classes/Event.php';
+?>
+
 <div class="container mt-5">
     <h2 class="mb-4">Register for Event</h2>
     <form action="ajax/register-event.php" method="POST" id="registrationForm">

@@ -1,6 +1,10 @@
 <?php
 require_once 'config/database.php';
 
+include 'includes/header.php';
+include 'includes/navbar.php';
+require_once 'classes/User.php';
+
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -83,3 +87,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 
 </html>
+<?php include 'includes/footer.php'; ?>

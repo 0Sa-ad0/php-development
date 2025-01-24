@@ -1,3 +1,11 @@
+<?php
+include 'includes/header.php';
+include 'includes/navbar.php';
+require_once 'config/database.php';
+require_once 'classes/Event.php';
+?>
+
+
 <div class="container mt-5">
     <h2 class="mb-4">Event List</h2>
     <table class="table table-bordered table-striped">
@@ -23,3 +31,5 @@
         </tbody>
     </table>
 </div>
+
+<?php include 'includes/footer.php'; ?>
