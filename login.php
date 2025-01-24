@@ -1,8 +1,7 @@
 <?php
-require_once 'config/database.php';
-
-include 'includes/header.php';
-include 'includes/navbar.php';
+require_once 'database.php';
+include 'header.php';
+include 'navbar.php';
 
 session_start();
 

@@ -1,6 +1,6 @@
 <?php
-require_once '../config/database.php';
-require_once '../classes/Event.php';
+require_once 'database.php';
+require_once 'Event.php';
 
 $eventId = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
 $searchQuery = isset($_GET['query']) ? htmlspecialchars(trim($_GET['query'])) : '';

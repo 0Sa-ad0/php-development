@@ -1,6 +1,6 @@
 <?php
-require_once '../config/database.php';
-require_once '../classes/Event.php';
+require_once 'database.php';
+require_once 'Event.php';
 
 
 if (!isset($_GET['event_id']) || !is_numeric($_GET['event_id'])) {

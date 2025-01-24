@@ -1,9 +1,9 @@
 <?php
-require_once 'classes/User.php';
-require_once 'classes/Event.php';
-require_once 'includes/header.php';
-require_once 'includes/navbar.php';
-require_once 'config/database.php';
+require_once 'User.php';
+require_once 'Event.php';
+require_once 'header.php';
+require_once 'navbar.php';
+require_once 'database.php';
 
 $conn = getDatabaseConnection();
 $userObj = new User($conn);
@@ -49,5 +49,5 @@ $eventObj = new Event($conn);
 </div>
 
 <?php
-require_once 'includes/footer.php';
+require_once 'footer.php';
 ?>

@@ -1,9 +1,9 @@
 <?php
-require_once '../config/database.php';
+require_once 'database.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -31,7 +31,7 @@ $result = $conn->query($query);
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Admin Dashboard</h2>
-            <a href="../logout.php" class="btn btn-danger">Logout</a>
+            <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
         <table class="table table-bordered table-striped">
             <thead>

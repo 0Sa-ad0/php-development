@@ -1,8 +1,8 @@
 <?php
-include 'includes/header.php';
-include 'includes/navbar.php';
-require_once 'config/database.php';
-require_once 'classes/Event.php';
+include 'header.php';
+include 'navbar.php';
+require_once 'database.php';
+require_once 'Event.php';
 ?>
 
 
@@ -13,4 +13,4 @@ require_once 'classes/Event.php';
     <a href="index.php" class="btn btn-secondary">Back to List</a>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'footer.php'; ?>

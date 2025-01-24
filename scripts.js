@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     registrationForm.addEventListener("submit", function (e) {
       e.preventDefault();
       const formData = new FormData(this);
-      fetch("ajax/register-event.php", {
+      fetch("register-event.php", {
         method: "POST",
         body: formData,
       })
