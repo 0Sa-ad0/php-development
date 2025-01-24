@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
 require_once 'classes/User.php';
 require_once 'classes/Event.php';
 require_once 'includes/header.php';
 require_once 'includes/navbar.php';
+require_once(dirname(__FILE__) . "../config/database.php");
 ?>
 
 <div class="container mt-5">
