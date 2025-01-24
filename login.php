@@ -3,7 +3,7 @@ require_once 'config/database.php';
 
 include 'includes/header.php';
 include 'includes/navbar.php';
-require_once 'classes/User.php';
+require_once '../ems/classes/User.php';
 
 session_start();
 
