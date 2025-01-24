@@ -1,9 +1,8 @@
 <?php
-require_once '../config/database.php';
-
-include '../includes/header.php';
-include '../includes/navbar.php';
-require_once '../classes/Event.php';
+require_once 'config/database.php';
+require_once 'classes/Event.php';
+include 'includes/header.php';
+include 'includes/navbar.php';
 
 session_start();
 
@@ -13,6 +12,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $conn = getDatabaseConnection();
+$eventObj = new Event($conn);
+$result = $eventObj->getAllEvents();
 
 $query = "SELECT * FROM events ORDER BY created_at DESC";
 $result = $conn->query($query);
@@ -74,4 +75,4 @@ $result = $conn->query($query);
 </html>
 
 <?php $conn->close(); ?>
-<?php include '../includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

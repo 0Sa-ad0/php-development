@@ -5,9 +5,14 @@ class User
 {
     private $conn;
 
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->conn = getDatabaseConnection();
+    // }
+
+    public function __construct($dbConnection)
     {
-        $this->conn = getDatabaseConnection();
+        $this->conn = $dbConnection;
     }
 
     public function register($username, $email, $password)
@@ -25,14 +30,20 @@ class User
         $stmt = $this->conn->prepare("SELECT id, username, password FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
+
+        $userId = $username = $hashedPassword = null;
         $stmt->bind_result($userId, $username, $hashedPassword);
-        if ($stmt->fetch() && password_verify($password, $hashedPassword)) {
+
+        // Ensure the fetch was successful and $hashedPassword is a valid string
+        if ($stmt->fetch() && is_string($hashedPassword) && password_verify($password, $hashedPassword)) {
             $stmt->close();
             return ['id' => $userId, 'username' => $username];
         }
+
         $stmt->close();
         return null;
     }
+
 
     public function getById($userId)
     {

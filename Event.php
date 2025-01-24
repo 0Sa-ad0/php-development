@@ -1,13 +1,18 @@
 <?php
-require_once '../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 class Event
 {
     private $conn;
 
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->conn = getDatabaseConnection();
+    // }
+
+    public function __construct($dbConnection)
     {
-        $this->conn = getDatabaseConnection();
+        $this->conn = $dbConnection;
     }
 
     public function create($name, $description, $maxCapacity, $userId)
@@ -19,11 +24,12 @@ class Event
         return $success;
     }
 
-    public function getAll()
+    public function getAllEvents()
     {
         $query = "SELECT * FROM events ORDER BY created_at DESC";
-        $result = $this->conn->query($query);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     public function getById($eventId)
