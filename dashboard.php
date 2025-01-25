@@ -6,8 +6,8 @@ include 'navbar.php';
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if ($_SESSION['role'] !== 'user') {
+    header('Location: index.php');
     exit();
 }
 
@@ -75,4 +75,4 @@ $result = $conn->query($query);
 </html>
 
 <?php $conn->close(); ?>
-<?php include 'includes/footer.php'; ?>
+<?php include 'footer.php'; ?>

@@ -5,21 +5,19 @@ class User
 {
     private $conn;
 
-    // public function __construct()
-    // {
-    //     $this->conn = getDatabaseConnection();
-    // }
-
     public function __construct($dbConnection)
     {
         $this->conn = $dbConnection;
     }
 
-    public function register($username, $email, $password)
+    public function register($username, $email, $password, $role)
     {
+        if (!in_array($role, ['user', 'admin'])) {
+            return false;
+        }
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $username, $email, $hashedPassword, $role);
         $success = $stmt->execute();
         $stmt->close();
         return $success;

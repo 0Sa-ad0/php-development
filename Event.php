@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . 'database.php';
+require_once 'database.php';
 
 class Event
 {
@@ -51,4 +51,49 @@ class Event
         $stmt->close();
         return $success;
     }
+
+    public function registerAttendee($eventId, $userId)
+    {
+        // Check if the user is already registered
+        $stmt = $this->conn->prepare("SELECT * FROM event_attendees WHERE event_id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $eventId, $userId);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            $stmt->close();
+            return false; // Already registered
+        }
+        $stmt->close();
+
+        $maxCapacity = 0;
+        $currentAttendees = 0;
+
+        // Check if the event has capacity
+        $stmt = $this->conn->prepare("
+            SELECT max_capacity, 
+                   (SELECT COUNT(*) FROM event_attendees WHERE event_id = ?) AS current_attendees 
+            FROM events 
+            WHERE id = ?
+        ");
+        $stmt->bind_param("ii", $eventId, $eventId);
+        $stmt->execute();
+        $stmt->bind_result($maxCapacity, $currentAttendees);
+        if (!$stmt->fetch()) {
+            $stmt->close();
+            return false; // Event not found
+        }
+        $stmt->close();
+
+        if ($currentAttendees >= $maxCapacity) {
+            return false; // Event is full
+        }
+
+        // Register the user
+        $stmt = $this->conn->prepare("INSERT INTO event_attendees (event_id, user_id) VALUES (?, ?)");
+        $stmt->bind_param("ii", $eventId, $userId);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
+
 }

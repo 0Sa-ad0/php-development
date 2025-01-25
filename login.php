@@ -2,14 +2,36 @@
 require_once 'database.php';
 include 'header.php';
 include 'navbar.php';
+require_once 'User.php';
 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $db = getDatabaseConnection();
+    $user = new User($db);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
     $errors = [];
 
     $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars(trim($_POST['password']));
+
+    $loggedInUser = $user->login($email, $password);
+
+    if ($loggedInUser) {
+        $_SESSION['role'] = $loggedInUser['role'];
+        $_SESSION['id'] = $loggedInUser['id'];
+        $_SESSION['success_message'] = "Login successful! Welcome, " . $loggedInUser['role'] . ".";
+        if ($loggedInUser['role'] === 'admin') {
+            header('Location: admin-dashboard.php');
+        } else {
+            header('Location: dashboard.php');
+        }
+        exit();
+    } else {
+        $error = "Invalid email or password.";
+    }
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))
         $errors[] = "Valid email is required.";
@@ -82,7 +104,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="mt-3">Don't have an account? <a href="register.php">Register here</a>.</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <?php if (!empty($_SESSION['success_message'])): ?>
+        <div class="alert alert-success">
+            <?= $_SESSION['success_message']; ?>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
 </body>
 
 </html>
-<?php include 'includes/footer.php'; ?>
+<?php include 'footer.php'; ?>

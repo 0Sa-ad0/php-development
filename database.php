@@ -23,6 +23,7 @@ function createTables()
         username VARCHAR(50) NOT NULL UNIQUE,
         email VARCHAR(100) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
+        role ENUM('admin', 'user') DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
 
@@ -36,7 +37,17 @@ function createTables()
         FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
     )";
 
-    $attendeesTable = "CREATE TABLE IF NOT EXISTS attendees (
+    // $attendeesTable = "CREATE TABLE IF NOT EXISTS attendees (
+    //     id INT AUTO_INCREMENT PRIMARY KEY,
+    //     event_id INT NOT NULL,
+    //     user_id INT NOT NULL,
+    //     registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    //     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+    //     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    //     UNIQUE(event_id, user_id)
+    // )";
+
+    $eventAttendeesTable = "CREATE TABLE IF NOT EXISTS event_attendees (
         id INT AUTO_INCREMENT PRIMARY KEY,
         event_id INT NOT NULL,
         user_id INT NOT NULL,
@@ -48,7 +59,8 @@ function createTables()
 
     $conn->query($usersTable);
     $conn->query($eventsTable);
-    $conn->query($attendeesTable);
+    // $conn->query($attendeesTable);
+    $conn->query($eventAttendeesTable);
 
     $conn->close();
 }
